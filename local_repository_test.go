@@ -123,7 +123,7 @@ func TestNewLocalRepository(t *testing.T) {
 			defer func(orig string) { _home = orig }(_home)
 			_home = ""
 			homeOnce = &sync.Once{}
-			r, err := LocalRepositoryFromURL(mustParseURL(tc.url), false)
+			r, err := LocalRepositoryFromURL(mustParseURL(tc.url), BareNone)
 			if err != nil {
 				t.Errorf("error should be nil but: %s", err)
 			}
@@ -131,6 +131,15 @@ func TestNewLocalRepository(t *testing.T) {
 				t.Errorf("got: %s, expect: %s", r.FullPath, tc.expect)
 			}
 		})
+	}
+}
+
+func TestBareModeFromClassicBool(t *testing.T) {
+	if bareModeFromClassicBool(true) != BareClassic {
+		t.Errorf("bareModeFromClassicBool(true) = %d, want BareClassic (%d)", bareModeFromClassicBool(true), BareClassic)
+	}
+	if bareModeFromClassicBool(false) != BareNone {
+		t.Errorf("bareModeFromClassicBool(false) = %d, want BareNone (%d)", bareModeFromClassicBool(false), BareNone)
 	}
 }
 

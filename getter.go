@@ -51,7 +51,7 @@ func (g *getter) get(ctx context.Context, argURL string) (getInfo, error) {
 // If isShallow is true, does shallow cloning. (no effect if already cloned or the VCS is Mercurial and git-svn)
 func (g *getter) getRemoteRepository(ctx context.Context, remote RemoteRepository, branch string) (getInfo, error) {
 	remoteURL := remote.URL()
-	local, err := LocalRepositoryFromURL(remoteURL, g.bare)
+	local, err := LocalRepositoryFromURL(remoteURL, bareModeFromClassicBool(g.bare))
 	if err != nil {
 		return getInfo{}, err
 	}

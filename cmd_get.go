@@ -165,7 +165,7 @@ func look(name string, bare bool) error {
 
 	if len(reposFound) == 0 {
 		if url, err := newURL(name, false, false); err == nil {
-			repo, err := LocalRepositoryFromURL(url, bare)
+			repo, err := LocalRepositoryFromURL(url, bareModeFromClassicBool(bare))
 			if err != nil {
 				return err
 			}
